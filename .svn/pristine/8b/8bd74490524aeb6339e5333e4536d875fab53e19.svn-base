@@ -1,0 +1,5 @@
+#Mon Dec 25 09:10:43 CST 2017
+eclipse.preferences.version=1
+encoding//WebRoot/WEB-INF/layout.jsp=UTF-8
+encoding//src/cn/et/student/controller/DeptController.java=GBK
+encoding//src/cn/et/student/utils/PageTools.java=UTF-8

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+	<meta charset="UTF-8">
+	<title>Basic Layout - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="themes/icon.css">
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.easyui.min.js"></script>
+	
+	<script type="text/javascript">
+	
+		$(function(){
+			$("#tree").tree({
+				onSelect: function(node){
+					var id = node.id;
+					$("#empTable").datagrid("load",{
+						id:id
+					})
+				}
+			});
+		
+		})
+	</script>
+</head>
+<body style="margin: 1px;height: 100%">
+	<div class="easyui-layout" style="width:100%;height:100%;margin:0px">
+		<div data-options="region:'west',split:true" title="部门" style="width:20%;">
+			<ul id="tree" class="easyui-tree" data-options="url:'selectDept'">
+			</ul>
+		</div>
+		<div data-options="region:'center',title:'员工信息',iconCls:'icon-ok'">
+			<table id="empTable" class="easyui-datagrid" title="Basic DataGrid" style="width:700px;height:250px"
+					data-options="singleSelect:false,collapsible:false,url:'selectEmp',method:'get',pagination:true">
+				<thead>
+					<tr>
+						<!-- [{"eid":1,"ename":"张三","deptid":4},{"eid":2,"ename":"李四","deptid":4}] -->  
+						<th data-options="field:'eid',width:80">员工编号</th>
+						<th data-options="field:'ename',width:100">员工姓名</th>
+						<th data-options="field:'deptid',width:100">所在部门</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+ 
+</body>
+</html>

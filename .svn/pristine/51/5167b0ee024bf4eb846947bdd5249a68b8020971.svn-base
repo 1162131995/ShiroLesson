@@ -1,0 +1,45 @@
+package cn.et.config;
+
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAccount;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import cn.et.dao.UserMapper;
+import cn.et.entity.UserInfo;
+@Component
+public class MyDbRealm extends AuthorizingRealm{
+	
+	@Autowired
+	UserMapper mapper;
+	/**
+	 * 认证
+	 * 返回非null认证通过	
+	 */
+	@Override
+	protected AuthenticationInfo doGetAuthenticationInfo(
+			AuthenticationToken arg0) throws AuthenticationException {
+		UsernamePasswordToken token = (UsernamePasswordToken)arg0;
+		UserInfo user = mapper.selectUser(token.getUsername());
+		if(user != null & user.getPassword() == new String(token.getPassword())){
+			SimpleAccount sa = new SimpleAccount(token.getUsername(),token.getPassword(),"MyDbRealm");
+			return sa;
+		}
+		return null;
+	}
+	
+	@Override
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+}

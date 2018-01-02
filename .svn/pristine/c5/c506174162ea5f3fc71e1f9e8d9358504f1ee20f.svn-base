@@ -1,0 +1,11 @@
+package cn.et.dao;
+
+import org.apache.ibatis.annotations.Select;
+
+import cn.et.entity.UserInfo;
+
+public interface UserMapper {
+	
+	@Select("select * from user_info where user_name=#{0}")
+	public UserInfo selectUser(String userName);
+}
